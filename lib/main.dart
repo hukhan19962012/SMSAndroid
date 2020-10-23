@@ -20,7 +20,10 @@ class MyApp extends StatelessWidget {
               ),
               Text(
                 'Cuong',
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Pacifico'),
               ),
             ],
           ),
