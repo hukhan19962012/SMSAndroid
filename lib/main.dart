@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
               CircleAvatar(
                 radius: 50,
                 backgroundImage: NetworkImage(
-                    'https://cdnmedia.webthethao.vn/uploads/img/files/images/fullsize/ao-shin.jpg'), which flutter dart
+                    'https://cdnmedia.webthethao.vn/uploads/img/files/images/fullsize/ao-shin.jpg'),
               ),
               Text(
                 'Cuong Lai Tan',
