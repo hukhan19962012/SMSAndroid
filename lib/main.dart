@@ -1,6 +1,5 @@
+import 'package:SMSAndroid/views/home_page.dart';
 import 'package:flutter/material.dart';
-
-import 'Views/product_list.dart';
 
 void main() {
   runApp(App());
