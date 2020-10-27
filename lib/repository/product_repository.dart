@@ -1,7 +1,7 @@
 import 'package:SMSAndroid/models/product_response.dart';
 import 'package:http/http.dart' as http;
 
-class CompanyRepository {
+class ProductRepository {
   static String mainUrl = "https://scam2020.azurewebsites.net/api/";
   static String version = "1.0";
   var getProductUrl = "$mainUrl/v$version/Products";
