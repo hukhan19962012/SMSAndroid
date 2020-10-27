@@ -1,7 +1,8 @@
+import 'package:SMSAndroid/models/product.dart';
+import 'package:SMSAndroid/models/product_response.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class ProductState extends Equatable {
-
   final List propss;
   ProductState([this.propss]);
 
@@ -11,7 +12,6 @@ abstract class ProductState extends Equatable {
 
 /// UnInitialized
 class UnProductState extends ProductState {
-
   UnProductState();
 
   @override
@@ -20,20 +20,19 @@ class UnProductState extends ProductState {
 
 /// Initialized
 class InProductState extends ProductState {
-  final String hello;
+  final ProductResponse productResponse;
 
-  InProductState(this.hello) : super([hello]);
+  InProductState(this.productResponse) : super([productResponse]);
 
   @override
-  String toString() => 'InProductState $hello';
-
+  String toString() => 'InProductState ';
 }
 
 class ErrorProductState extends ProductState {
   final String errorMessage;
 
-  ErrorProductState(this.errorMessage): super([errorMessage]);
-  
+  ErrorProductState(this.errorMessage) : super([errorMessage]);
+
   @override
   String toString() => 'ErrorProductState';
 }

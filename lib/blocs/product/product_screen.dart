@@ -1,3 +1,4 @@
+import 'package:SMSAndroid/repository/product_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:SMSAndroid/blocs/product/index.dart';
@@ -40,11 +41,13 @@ class ProductScreenState extends State<ProductScreen> {
           ProductState currentState,
         ) {
           if (currentState is UnProductState) {
+            print("screen 2");
             return Center(
               child: CircularProgressIndicator(),
             );
           }
           if (currentState is ErrorProductState) {
+            print("screen 1");
             return Center(
                 child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -61,20 +64,20 @@ class ProductScreenState extends State<ProductScreen> {
               ],
             ));
           }
-           if (currentState is InProductState) {
+          if (currentState is InProductState) {
+            print("screen 3");
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text(currentState.hello),
+                  Text(currentState.productResponse.toString()),
                 ],
               ),
             );
           }
           return Center(
-              child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(),
           );
-          
         });
   }
 
