@@ -116,7 +116,7 @@ class ProductScreenState extends State<ProductScreen> {
   Widget _singleItembuild(Product product) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(product.name),
+        title: Text("Product Detail"),
       ),
       body: Center(
         child: Container(
@@ -135,7 +135,7 @@ class ProductScreenState extends State<ProductScreen> {
                             Text(product.name,
                                 style: TextStyle(fontWeight: FontWeight.bold)),
                             Text(product.description),
-                            Text("Price: " + product.price.toString()),
+                            Text("Price: " + product.price.toString() + "\$"),
                           ],
                         )))
               ]),
