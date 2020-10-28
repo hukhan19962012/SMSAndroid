@@ -1,5 +1,6 @@
 import 'package:SMSAndroid/models/product.dart';
 import 'package:SMSAndroid/models/product_response.dart';
+
 import 'package:equatable/equatable.dart';
 
 abstract class ProductState extends Equatable {

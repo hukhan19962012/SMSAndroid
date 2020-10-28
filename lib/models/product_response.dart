@@ -10,7 +10,7 @@ class ProductResponse {
 
   ProductResponse.fromJson(String response)
       : products = json
-            .decode(response)
+            .decode(response)["data"]
             .map<Product>((item) => Product.fromJson(item))
             .toList(),
         error = "";

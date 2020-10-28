@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer' as developer;
 
 import 'package:SMSAndroid/blocs/product/index.dart';
+import 'package:SMSAndroid/models/product.dart';
 import 'package:SMSAndroid/models/product_response.dart';
 import 'package:SMSAndroid/repository/product_repository.dart';
 import 'package:meta/meta.dart';
@@ -31,7 +32,7 @@ class LoadProductEvent extends ProductEvent {
       await Future.delayed(Duration(seconds: 1));
       print("debug1");
       ProductResponse listProduct = await _productRepository.getProducts();
-      print(listProduct.products.toString());
+      print(listProduct);
       yield InProductState(listProduct);
     } catch (_, stackTrace) {
       developer.log('$_',

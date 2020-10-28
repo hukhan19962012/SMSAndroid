@@ -20,15 +20,12 @@ class Product {
   int id;
   String name;
   String description;
-  int price;
+  double price;
   String img;
   bool isActive;
   List<ProductVariety> productVarietys;
 
   factory Product.fromJson(Map<String, dynamic> json) {
-    List<dynamic> productVariety = json["productVarietys"];
-    List<ProductVariety> listProductVariety =
-        productVariety.map((e) => ProductVariety.fromJson(e)).toList();
     return Product(
       id: json["id"],
       name: json["name"],
@@ -36,7 +33,7 @@ class Product {
       price: json["price"],
       img: json["img"],
       isActive: json["isActive"],
-      productVarietys: listProductVariety,
+      productVarietys: json["productVarietys"],
     );
   }
 
