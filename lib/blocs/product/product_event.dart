@@ -31,6 +31,7 @@ class LoadProductEvent extends ProductEvent {
       await Future.delayed(Duration(seconds: 1));
       print("debug1");
       ProductResponse listProduct = await _productRepository.getProducts();
+      print(listProduct.products.toString());
       yield InProductState(listProduct);
     } catch (_, stackTrace) {
       developer.log('$_',

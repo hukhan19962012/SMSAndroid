@@ -7,8 +7,8 @@ class ProductRepository {
   var getProductUrl = "$mainUrl/Product";
 
   Future<ProductResponse> getProducts() async {
-    final response = await http.get(Uri.encodeFull(getProductUrl),
-        headers: {"Accept": "application/json"});
+    final response = await http.get(
+        "https://mysmsapi.azurewebsites.net/api/v1.0/Product?PageNumber=1&PageSize=10");
     if (response.statusCode == 200) {
       return ProductResponse.fromJson(response.body);
     } else {

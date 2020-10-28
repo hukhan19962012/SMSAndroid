@@ -25,16 +25,20 @@ class Product {
   bool isActive;
   List<ProductVariety> productVarietys;
 
-  factory Product.fromJson(Map<String, dynamic> json) => Product(
-        id: json["id"],
-        name: json["name"],
-        description: json["description"],
-        price: json["price"],
-        img: json["img"],
-        isActive: json["isActive"],
-        productVarietys: List<ProductVariety>.from(
-            json["productVarietys"].map((x) => ProductVariety.fromJson(x))),
-      );
+  factory Product.fromJson(Map<String, dynamic> json) {
+    List<dynamic> productVariety = json["productVarietys"];
+    List<ProductVariety> listProductVariety =
+        productVariety.map((e) => ProductVariety.fromJson(e)).toList();
+    return Product(
+      id: json["id"],
+      name: json["name"],
+      description: json["description"],
+      price: json["price"],
+      img: json["img"],
+      isActive: json["isActive"],
+      productVarietys: listProductVariety,
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         "id": id,

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'product.dart';
+import 'package:SMSAndroid/models/product.dart';
 
 class ProductResponse {
   final List<Product> products;

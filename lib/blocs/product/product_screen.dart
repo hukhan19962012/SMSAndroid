@@ -70,7 +70,7 @@ class ProductScreenState extends State<ProductScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text(currentState.productResponse.toString()),
+                  Text(currentState.productResponse.products.toString()),
                 ],
               ),
             );
