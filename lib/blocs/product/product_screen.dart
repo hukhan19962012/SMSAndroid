@@ -1,6 +1,5 @@
 import 'package:SMSAndroid/models/product.dart';
 import 'package:SMSAndroid/models/product_response.dart';
-import 'package:SMSAndroid/repository/product_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:SMSAndroid/blocs/product/index.dart';
