@@ -1,3 +1,4 @@
+import 'package:SMSAndroid/HomeScreenSketch.dart';
 import 'package:SMSAndroid/views/home_page.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,7 @@ class App extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
       ),
-      home: ProductPage(),
+      home: HomeScreenSketch(),
     );
   }
 }
