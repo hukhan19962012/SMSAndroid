@@ -10,9 +10,10 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'FSales',
       theme: ThemeData(
-        primarySwatch: Colors.orange[300],
+        primarySwatch: Colors.orange,
       ),
       home: ProductPage(),
     );
