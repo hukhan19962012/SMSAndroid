@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 
 abstract class ProductCategoryState extends Equatable {
-
   final List propss;
   ProductCategoryState([this.propss]);
 
@@ -11,7 +10,6 @@ abstract class ProductCategoryState extends Equatable {
 
 /// UnInitialized
 class UnProductCategoryState extends ProductCategoryState {
-
   UnProductCategoryState();
 
   @override
@@ -20,20 +18,20 @@ class UnProductCategoryState extends ProductCategoryState {
 
 /// Initialized
 class InProductCategoryState extends ProductCategoryState {
-  final String hello;
+  final List<String> hello;
+  final int index;
 
-  InProductCategoryState(this.hello) : super([hello]);
+  InProductCategoryState(this.hello, this.index) : super([hello, index]);
 
   @override
-  String toString() => 'InProductCategoryState $hello';
-
+  String toString() => 'InProductCategoryState';
 }
 
 class ErrorProductCategoryState extends ProductCategoryState {
   final String errorMessage;
 
-  ErrorProductCategoryState(this.errorMessage): super([errorMessage]);
-  
+  ErrorProductCategoryState(this.errorMessage) : super([errorMessage]);
+
   @override
   String toString() => 'ErrorProductCategoryState';
 }

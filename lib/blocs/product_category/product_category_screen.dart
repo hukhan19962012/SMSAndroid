@@ -1,3 +1,4 @@
+import 'package:SMSAndroid/constains.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:SMSAndroid/blocs/product_category/index.dart';
@@ -61,24 +62,31 @@ class ProductCategoryScreenState extends State<ProductCategoryScreen> {
               ],
             ));
           }
-           if (currentState is InProductCategoryState) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(currentState.hello),
-                ],
-              ),
-            );
+          if (currentState is InProductCategoryState) {
+            return SizedBox(
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: currentState.hello.length,
+                    itemBuilder: (context, index) =>
+                        buildCategory(currentState.hello, index)));
           }
           return Center(
-              child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(),
           );
-          
         });
   }
 
   void _load() {
     widget._productCategoryBloc.add(LoadProductCategoryEvent());
+  }
+
+  Widget buildCategory(List<String> categories, int index) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding * 2),
+      child: Text(
+        categories[index],
+        style: TextStyle(fontWeight: FontWeight.bold, color: kTextColor),
+      ),
+    );
   }
 }

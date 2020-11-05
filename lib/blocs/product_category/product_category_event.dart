@@ -12,23 +12,33 @@ abstract class ProductCategoryEvent {
 
 class UnProductCategoryEvent extends ProductCategoryEvent {
   @override
-  Stream<ProductCategoryState> applyAsync({ProductCategoryState currentState, ProductCategoryBloc bloc}) async* {
+  Stream<ProductCategoryState> applyAsync(
+      {ProductCategoryState currentState, ProductCategoryBloc bloc}) async* {
     yield UnProductCategoryState();
   }
 }
 
 class LoadProductCategoryEvent extends ProductCategoryEvent {
-   
   @override
   Stream<ProductCategoryState> applyAsync(
       {ProductCategoryState currentState, ProductCategoryBloc bloc}) async* {
     try {
       yield UnProductCategoryState();
       await Future.delayed(Duration(seconds: 1));
-      yield InProductCategoryState('Hello world');
+      List<String> categoryies = [
+        "hello",
+        "fuck you",
+        "wtf",
+        "hentai",
+        "asdasdasd",
+        "sdaasfasf"
+      ];
+      int index = 0;
+      yield InProductCategoryState(categoryies, index);
     } catch (_, stackTrace) {
-      developer.log('$_', name: 'LoadProductCategoryEvent', error: _, stackTrace: stackTrace);
-      yield ErrorProductCategoryState( _?.toString());
+      developer.log('$_',
+          name: 'LoadProductCategoryEvent', error: _, stackTrace: stackTrace);
+      yield ErrorProductCategoryState(_?.toString());
     }
   }
 }
