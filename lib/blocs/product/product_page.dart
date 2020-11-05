@@ -14,26 +14,6 @@ class _ProductPageState extends State<ProductPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Product Page"),
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () => {},
-        ),
-        actions: <Widget>[
-          IconButton(
-            icon: (Icon(Icons.search)),
-            color: kTextColor,
-            onPressed: () => {},
-          ),
-          SizedBox(
-            width: kDefaultPadding / 2,
-          )
-        ],
-      ),
-      body: ProductScreen(productBloc: _productBloc),
-    );
+    return ProductScreen(productBloc: _productBloc);
   }
 }
