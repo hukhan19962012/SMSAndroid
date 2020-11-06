@@ -1,3 +1,4 @@
+import 'package:SMSAndroid/models/product_category_response.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class ProductCategoryState extends Equatable {
@@ -18,10 +19,9 @@ class UnProductCategoryState extends ProductCategoryState {
 
 /// Initialized
 class InProductCategoryState extends ProductCategoryState {
-  final List<String> hello;
-  final int index;
+  final ProductCategoryResponse cats;
 
-  InProductCategoryState(this.hello, this.index) : super([hello, index]);
+  InProductCategoryState(this.cats) : super([cats]);
 
   @override
   String toString() => 'InProductCategoryState';

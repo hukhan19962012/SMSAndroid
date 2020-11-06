@@ -1,4 +1,7 @@
 import 'package:SMSAndroid/constains.dart';
+import 'package:SMSAndroid/models/product_category.dart';
+import 'package:SMSAndroid/models/product_category_response.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:SMSAndroid/blocs/product_category/index.dart';
@@ -63,12 +66,7 @@ class ProductCategoryScreenState extends State<ProductCategoryScreen> {
             ));
           }
           if (currentState is InProductCategoryState) {
-            return SizedBox(
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: currentState.hello.length,
-                    itemBuilder: (context, index) =>
-                        buildCategory(currentState.hello, index)));
+            return _buildListProductCategory(currentState.cats);
           }
           return Center(
             child: CircularProgressIndicator(),
@@ -76,17 +74,34 @@ class ProductCategoryScreenState extends State<ProductCategoryScreen> {
         });
   }
 
-  void _load() {
-    widget._productCategoryBloc.add(LoadProductCategoryEvent());
+  Widget _buildListProductCategory(ProductCategoryResponse catRes) {
+    return ListView.separated(
+        itemBuilder: (context, index) {
+          return ListTile(
+            leading: CircleAvatar(
+              backgroundImage: NetworkImage(catRes.productcats[index].img),
+              radius: 30,
+            ),
+            title: Text(
+              catRes.productcats[index].name,
+              style: TextStyle(color: Colors.black, fontSize: 16),
+            ),
+            subtitle: Text(
+              catRes.productcats[index].description,
+              style: TextStyle(color: Colors.grey, fontSize: 14),
+            ),
+            // onTap: () => {_return null;}
+          );
+        },
+        separatorBuilder: (context, index) {
+          return Divider(
+            height: 1,
+          );
+        },
+        itemCount: catRes.productcats.length);
   }
 
-  Widget buildCategory(List<String> categories, int index) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding * 2),
-      child: Text(
-        categories[index],
-        style: TextStyle(fontWeight: FontWeight.bold, color: kTextColor),
-      ),
-    );
+  void _load() {
+    widget._productCategoryBloc.add(LoadProductCategoryEvent());
   }
 }

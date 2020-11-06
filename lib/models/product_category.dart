@@ -7,7 +7,6 @@ class ProductCategory {
     this.description,
     this.isActive,
     this.img,
-    this.products,
   });
 
   int id;
@@ -15,7 +14,6 @@ class ProductCategory {
   String description;
   bool isActive;
   String img;
-  List<Product> products;
 
   factory ProductCategory.fromJson(Map<String, dynamic> json) =>
       ProductCategory(
@@ -24,8 +22,6 @@ class ProductCategory {
         description: json["description"],
         isActive: json["isActive"],
         img: json["img"],
-        products: List<Product>.from(
-            json["products"].map((x) => Product.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -34,6 +30,5 @@ class ProductCategory {
         "description": description,
         "isActive": isActive,
         "img": img,
-        "products": List<dynamic>.from(products.map((x) => x.toJson())),
       };
 }

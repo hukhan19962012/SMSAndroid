@@ -8,7 +8,6 @@ class ProductRepository {
 
   Future<ProductResponse> getProducts() async {
     final response = await http.get(getProductUrl);
-    print(http.read(getProductUrl + "?PageNumber=1&PageSize=10&"));
     if (response.statusCode == 200) {
       return ProductResponse.fromJson(response.body);
     } else {

@@ -2,12 +2,16 @@ import 'dart:async';
 import 'dart:developer' as developer;
 
 import 'package:SMSAndroid/blocs/product_category/index.dart';
+import 'package:SMSAndroid/models/product_category_response.dart';
+import 'package:SMSAndroid/repository/product_category_repository.dart';
 import 'package:meta/meta.dart';
 
 @immutable
 abstract class ProductCategoryEvent {
   Stream<ProductCategoryState> applyAsync(
       {ProductCategoryState currentState, ProductCategoryBloc bloc});
+  final ProductCategoryRepository _productCategoryRepository =
+      ProductCategoryRepository();
 }
 
 class UnProductCategoryEvent extends ProductCategoryEvent {
@@ -25,16 +29,9 @@ class LoadProductCategoryEvent extends ProductCategoryEvent {
     try {
       yield UnProductCategoryState();
       await Future.delayed(Duration(seconds: 1));
-      List<String> categoryies = [
-        "hello",
-        "fuck you",
-        "wtf",
-        "hentai",
-        "asdasdasd",
-        "sdaasfasf"
-      ];
-      int index = 0;
-      yield InProductCategoryState(categoryies, index);
+      ProductCategoryResponse categories =
+          await _productCategoryRepository.getProductcats();
+      yield InProductCategoryState(categories);
     } catch (_, stackTrace) {
       developer.log('$_',
           name: 'LoadProductCategoryEvent', error: _, stackTrace: stackTrace);
