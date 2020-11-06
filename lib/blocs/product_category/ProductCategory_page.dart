@@ -13,6 +13,10 @@ class _ProductCategoryPageState extends State<ProductCategoryPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ProductCategoryScreen(productCategoryBloc: _productCategoryBloc);
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("ProductCategory"),
+        ),
+        body: ProductCategoryScreen(productCategoryBloc: _productCategoryBloc));
   }
 }

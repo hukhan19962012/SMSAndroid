@@ -1,4 +1,3 @@
-import 'package:SMSAndroid/constains.dart';
 import 'package:flutter/material.dart';
 import 'package:SMSAndroid/blocs/product/index.dart';
 
@@ -14,6 +13,10 @@ class _ProductPageState extends State<ProductPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ProductScreen(productBloc: _productBloc);
+    Scaffold(
+        appBar: AppBar(
+          title: Text("Product"),
+        ),
+        body: ProductScreen(productBloc: _productBloc));
   }
 }

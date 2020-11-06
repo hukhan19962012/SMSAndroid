@@ -12,8 +12,8 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'FSales',
       theme: ThemeData(
-        primarySwatch: Colors.orange,
-      ),
+          primarySwatch: Colors.orange,
+          visualDensity: VisualDensity.adaptivePlatformDensity),
       home: Home(),
     );
   }
