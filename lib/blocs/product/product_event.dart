@@ -2,8 +2,6 @@ import 'dart:async';
 import 'dart:developer' as developer;
 
 import 'package:SMSAndroid/blocs/product/index.dart';
-import 'package:SMSAndroid/models/product.dart';
-import 'package:SMSAndroid/models/product_response.dart';
 import 'package:SMSAndroid/repository/product_repository.dart';
 import 'package:meta/meta.dart';
 
@@ -18,26 +16,33 @@ class UnProductEvent extends ProductEvent {
   @override
   Stream<ProductState> applyAsync(
       {ProductState currentState, ProductBloc bloc}) async* {
-    print("debug2");
-    yield UnProductState();
+    yield UnProductState(0);
   }
 }
 
 class LoadProductEvent extends ProductEvent {
+  final int catId;
+  final String name;
+  final int pageNumber;
+  @override
+  String toString() => 'LoadProductEvent';
+
+  LoadProductEvent(this.catId, this.pageNumber, this.name);
+
   @override
   Stream<ProductState> applyAsync(
       {ProductState currentState, ProductBloc bloc}) async* {
     try {
-      yield UnProductState();
+      yield UnProductState(0);
       await Future.delayed(Duration(seconds: 1));
-      print("debug1");
-      ProductResponse listProduct = await _productRepository.getProducts();
-      print(listProduct);
-      yield InProductState(listProduct);
+
+      yield InProductState(
+        0,
+      );
     } catch (_, stackTrace) {
       developer.log('$_',
           name: 'LoadProductEvent', error: _, stackTrace: stackTrace);
-      yield ErrorProductState(_?.toString());
+      yield ErrorProductState(0, _?.toString());
     }
   }
 }

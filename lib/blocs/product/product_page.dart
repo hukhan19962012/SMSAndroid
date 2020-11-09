@@ -1,3 +1,4 @@
+import 'package:SMSAndroid/models/product_response.dart';
 import 'package:flutter/material.dart';
 import 'package:SMSAndroid/blocs/product/index.dart';
 
@@ -9,14 +10,15 @@ class ProductPage extends StatefulWidget {
 }
 
 class _ProductPageState extends State<ProductPage> {
-  final _productBloc = ProductBloc(UnProductState());
+  final _productBloc = ProductBloc();
 
   @override
   Widget build(BuildContext context) {
-    Scaffold(
-        appBar: AppBar(
-          title: Text("Product"),
-        ),
-        body: ProductScreen(productBloc: _productBloc));
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Product'),
+      ),
+      body: ProductScreen(productBloc: _productBloc),
+    );
   }
 }

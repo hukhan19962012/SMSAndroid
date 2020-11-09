@@ -24,4 +24,14 @@ class ProductRepository {
       throw Exception('Failed to load post Product');
     }
   }
+
+  Future<ProductResponse> getProductbyCat(int catId, int pageNumber) async {
+    final response = await http.get(getProductUrl +
+        "/?PageNumber=$pageNumber?field=Category&ProductCategoryId=$catId");
+    if (response.statusCode == 200) {
+      return ProductResponse.fromJson(response.body);
+    } else {
+      throw Exception('Failed to load Products');
+    }
+  }
 }
