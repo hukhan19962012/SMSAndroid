@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer' as developer;
 
 import 'package:SMSAndroid/blocs/product/index.dart';
+import 'package:SMSAndroid/models/product_response.dart';
 import 'package:SMSAndroid/repository/product_repository.dart';
 import 'package:meta/meta.dart';
 
@@ -16,7 +17,7 @@ class UnProductEvent extends ProductEvent {
   @override
   Stream<ProductState> applyAsync(
       {ProductState currentState, ProductBloc bloc}) async* {
-    yield UnProductState(0);
+    yield UnProductState(1, "", 1);
   }
 }
 
@@ -33,16 +34,15 @@ class LoadProductEvent extends ProductEvent {
   Stream<ProductState> applyAsync(
       {ProductState currentState, ProductBloc bloc}) async* {
     try {
-      yield UnProductState(0);
+      yield UnProductState(1, "", 1);
       await Future.delayed(Duration(seconds: 1));
-
-      yield InProductState(
-        0,
-      );
+      ProductResponse productResponse =
+          await _productRepository.getProductbyCat(this.catId, this.pageNumber);
+      yield InProductState(productResponse);
     } catch (_, stackTrace) {
       developer.log('$_',
           name: 'LoadProductEvent', error: _, stackTrace: stackTrace);
-      yield ErrorProductState(0, _?.toString());
+      yield ErrorProductState(_?.toString());
     }
   }
 }

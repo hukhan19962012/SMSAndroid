@@ -7,11 +7,16 @@ class ProductScreen extends StatefulWidget {
   const ProductScreen({
     Key key,
     @required ProductBloc productBloc,
+    this.catId,
+    this.name,
+    this.pageNum,
   })  : _productBloc = productBloc,
         super(key: key);
 
   final ProductBloc _productBloc;
-
+  final int catId;
+  final String name;
+  final int pageNum;
   @override
   ProductScreenState createState() {
     return ProductScreenState();
@@ -49,7 +54,7 @@ class ProductScreenState extends State<ProductScreen> {
             var raisedButton = RaisedButton(
               color: Colors.blue,
               child: Text('reload'),
-              onPressed: _load(),
+              // onPressed: _load(1, 1, ""),
             );
             return Center(
                 child: Column(

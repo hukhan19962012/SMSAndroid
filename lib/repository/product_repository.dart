@@ -27,7 +27,7 @@ class ProductRepository {
 
   Future<ProductResponse> getProductbyCat(int catId, int pageNumber) async {
     final response = await http.get(getProductUrl +
-        "/?PageNumber=$pageNumber?field=Category&ProductCategoryId=$catId");
+        "/?PageNumber=$pageNumber&field=Category&ProductCategoryId=$catId");
     if (response.statusCode == 200) {
       return ProductResponse.fromJson(response.body);
     } else {

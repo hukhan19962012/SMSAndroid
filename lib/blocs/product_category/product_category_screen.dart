@@ -1,5 +1,4 @@
-import 'package:SMSAndroid/constains.dart';
-import 'package:SMSAndroid/models/product_category.dart';
+import 'package:SMSAndroid/blocs/product/index.dart';
 import 'package:SMSAndroid/models/product_category_response.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -78,20 +77,26 @@ class ProductCategoryScreenState extends State<ProductCategoryScreen> {
     return ListView.separated(
         itemBuilder: (context, index) {
           return ListTile(
-            leading: CircleAvatar(
-              backgroundImage: NetworkImage(catRes.productcats[index].img),
-              radius: 30,
-            ),
-            title: Text(
-              catRes.productcats[index].name,
-              style: TextStyle(color: Colors.black, fontSize: 16),
-            ),
-            subtitle: Text(
-              catRes.productcats[index].description,
-              style: TextStyle(color: Colors.grey, fontSize: 14),
-            ),
-            // onTap: () => {_return null;}
-          );
+              leading: CircleAvatar(
+                backgroundImage: NetworkImage(catRes.productcats[index].img),
+                radius: 30,
+              ),
+              title: Text(
+                catRes.productcats[index].name,
+                style: TextStyle(color: Colors.black, fontSize: 16),
+              ),
+              subtitle: Text(
+                catRes.productcats[index].description,
+                style: TextStyle(color: Colors.grey, fontSize: 14),
+              ),
+              onTap: () => {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              ProductPage(catRes.productcats[index].id, 1)),
+                    )
+                  });
         },
         separatorBuilder: (context, index) {
           return Divider(

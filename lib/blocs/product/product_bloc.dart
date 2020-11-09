@@ -5,18 +5,13 @@ import 'package:bloc/bloc.dart';
 import 'package:SMSAndroid/blocs/product/index.dart';
 
 class ProductBloc extends Bloc<ProductEvent, ProductState> {
-  final int catId;
-  final String name;
-  final int pageNum;
   // todo: check singleton for logic in project
   // use GetIt for DI in projct
-  static final ProductBloc _productBlocSingleton =
-      ProductBloc._internal(this.catId, this.pageNum, this.name);
+  static final ProductBloc _productBlocSingleton = ProductBloc._internal();
   factory ProductBloc() {
     return _productBlocSingleton;
   }
-  ProductBloc._internal(this.catId, this.name, this.pageNum)
-      : super(UnProductState(0));
+  ProductBloc._internal() : super(UnProductState(1, "", 1));
 
   @override
   Future<void> close() async {
@@ -25,7 +20,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   }
 
   @override
-  ProductState get initialState => UnProductState(0);
+  ProductState get initialState => UnProductState(1, "", 1);
 
   @override
   Stream<ProductState> mapEventToState(
