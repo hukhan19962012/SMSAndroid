@@ -29,6 +29,8 @@ class _ProductPageState extends State<ProductPage> {
       ),
       body: ProductScreen(
         productBloc: _productBloc,
+        catId: catId,
+        pageNum: pageNumber,
       ),
     );
   }

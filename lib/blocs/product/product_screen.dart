@@ -7,10 +7,13 @@ class ProductScreen extends StatefulWidget {
   const ProductScreen({
     Key key,
     @required ProductBloc productBloc,
-    this.catId,
-    this.name,
-    this.pageNum,
+    int catId,
+    String name,
+    int pageNum,
   })  : _productBloc = productBloc,
+        catId = catId,
+        name = name,
+        pageNum = pageNum,
         super(key: key);
 
   final ProductBloc _productBloc;
@@ -53,6 +56,7 @@ class ProductScreenState extends State<ProductScreen> {
             );
           }
           if (currentState is ErrorProductState) {
+            print("${this.catId}" + "${this.pageNum}" + "${this.name}");
             var raisedButton = RaisedButton(
                 color: Colors.blue,
                 child: Text('reload'),
@@ -70,6 +74,7 @@ class ProductScreenState extends State<ProductScreen> {
             ));
           }
           if (currentState is InProductState) {
+            print("${this.catId}" + "${this.pageNum}" + "${this.name}");
             return _buildListProduct(currentState.productResponse);
           }
           return Center(
