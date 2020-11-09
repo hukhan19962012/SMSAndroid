@@ -19,17 +19,19 @@ class ProductScreen extends StatefulWidget {
   final int pageNum;
   @override
   ProductScreenState createState() {
-    return ProductScreenState();
+    return ProductScreenState(this.catId, this.name, this.pageNum);
   }
 }
 
 class ProductScreenState extends State<ProductScreen> {
-  ProductScreenState();
-
+  ProductScreenState(this.catId, this.name, this.pageNum);
+  final int catId;
+  final String name;
+  final int pageNum;
   @override
   void initState() {
     super.initState();
-    _load(1, 1, "");
+    _load(this.catId, this.pageNum, this.name);
   }
 
   @override
@@ -52,10 +54,9 @@ class ProductScreenState extends State<ProductScreen> {
           }
           if (currentState is ErrorProductState) {
             var raisedButton = RaisedButton(
-              color: Colors.blue,
-              child: Text('reload'),
-              // onPressed: _load(1, 1, ""),
-            );
+                color: Colors.blue,
+                child: Text('reload'),
+                onPressed: () => {_load(this.catId, this.pageNum, this.name)});
             return Center(
                 child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
