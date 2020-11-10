@@ -28,13 +28,27 @@ class ProductScreen extends StatefulWidget {
 
 class ProductScreenState extends State<ProductScreen> {
   ProductScreenState(this.catId, this.name, this.pageNum);
-  final int catId;
-  final String name;
-  final int pageNum;
+  int catId;
+  String name;
+  int pageNum;
+  ScrollController _scrollController = ScrollController();
   @override
   void initState() {
     super.initState();
     _load(this.catId, this.pageNum, this.name);
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        this.pageNum = this.pageNum + 1;
+        _load(this.catId, this.pageNum, this.name);
+      } else if (_scrollController.position.pixels ==
+          _scrollController.position.minScrollExtent) {
+        if (this.pageNum - 1 > 0) {
+          this.pageNum = this.pageNum - 1;
+          _load(this.catId, this.pageNum, this.name);
+        }
+      }
+    });
   }
 
   @override
@@ -73,7 +87,8 @@ class ProductScreenState extends State<ProductScreen> {
             ));
           }
           if (currentState is InProductState) {
-            return _buildListProduct(currentState.productResponse);
+            return _buildListProduct(
+                currentState.productResponse, _scrollController);
           }
           return Center(
             child: CircularProgressIndicator(),
@@ -86,8 +101,10 @@ class ProductScreenState extends State<ProductScreen> {
   }
 }
 
-Widget _buildListProduct(ProductResponse proRes) {
-  return ListView.separated(
+Widget _buildListProduct(ProductResponse proRes, ScrollController controller) {
+  return ListView.builder(
+      controller: controller,
+      itemExtent: 10,
       itemBuilder: (context, index) {
         return ListTile(
           leading: CircleAvatar(
@@ -103,11 +120,6 @@ Widget _buildListProduct(ProductResponse proRes) {
             style: TextStyle(color: Colors.grey, fontSize: 14),
           ),
           // onTap: () => {_openMyPage(proRes.products[index])},
-        );
-      },
-      separatorBuilder: (context, index) {
-        return Divider(
-          height: 1,
         );
       },
       itemCount: proRes.products.length);

@@ -28,13 +28,6 @@ class _ProductPageState extends State<ProductPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Product'),
-        actions: <Widget>[
-          IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () => {
-                    showSearch(context: context, delegate: )
-                  })
-        ],
       ),
       body: ProductScreen(
         productBloc: _productBloc,
@@ -49,6 +42,4 @@ class _ProductPageState extends State<ProductPage> {
     super.debugFillProperties(properties);
     properties.add(IntProperty('pageNumber', pageNumber));
   }
-  
-
 }

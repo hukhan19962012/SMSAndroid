@@ -22,7 +22,7 @@ class ProductCategoryScreen extends StatefulWidget {
 
 class ProductCategoryScreenState extends State<ProductCategoryScreen> {
   ProductCategoryScreenState();
-
+  ScrollController _scrollController = ScrollController();
   @override
   void initState() {
     super.initState();
