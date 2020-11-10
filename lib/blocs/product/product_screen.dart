@@ -56,7 +56,6 @@ class ProductScreenState extends State<ProductScreen> {
             );
           }
           if (currentState is ErrorProductState) {
-            print("${this.catId}" + "${this.pageNum}" + "${this.name}");
             var raisedButton = RaisedButton(
                 color: Colors.blue,
                 child: Text('reload'),
@@ -74,7 +73,6 @@ class ProductScreenState extends State<ProductScreen> {
             ));
           }
           if (currentState is InProductState) {
-            print("${this.catId}" + "${this.pageNum}" + "${this.name}");
             return _buildListProduct(currentState.productResponse);
           }
           return Center(
