@@ -26,9 +26,9 @@ class ProductCategoryScreen extends StatefulWidget {
 }
 
 class ProductCategoryScreenState extends State<ProductCategoryScreen> {
-  int pageNumber;
+  int pageNum;
   int companyId;
-  ProductCategoryScreenState(this.pageNumber, this.companyId);
+  ProductCategoryScreenState(this.pageNum, this.companyId);
   ScrollController _scrollController = ScrollController();
   @override
   void initState() {
@@ -37,16 +37,18 @@ class ProductCategoryScreenState extends State<ProductCategoryScreen> {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
         this.pageNum = this.pageNum + 1;
-        _load(this.catId, this.pageNum, this.name);
+        _load(this.pageNum);
       } else if (_scrollController.position.pixels ==
           _scrollController.position.minScrollExtent) {
         if (this.pageNum - 1 > 0) {
           this.pageNum = this.pageNum - 1;
-          _load(this.catId, this.pageNum, this.name);
+          _load(
+            this.pageNum,
+          );
         }
       }
     });
-    _load(this.pageNumber);
+    _load(this.pageNum);
   }
 
   @override
