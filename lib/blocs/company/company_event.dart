@@ -33,7 +33,8 @@ class LoadCompanyEvent extends CompanyEvent {
     try {
       yield UnCompanyState(0);
       await Future.delayed(Duration(seconds: 1));
-      _companyRepository.test(isError);
+      //do shit here
+
       yield InCompanyState(0, 'Hello world');
     } catch (_, stackTrace) {
       developer.log('$_',
