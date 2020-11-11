@@ -23,6 +23,9 @@ class UnProductCategoryEvent extends ProductCategoryEvent {
 }
 
 class LoadProductCategoryEvent extends ProductCategoryEvent {
+  final int pageNumber;
+
+  LoadProductCategoryEvent(this.pageNumber);
   @override
   Stream<ProductCategoryState> applyAsync(
       {ProductCategoryState currentState, ProductCategoryBloc bloc}) async* {
@@ -30,7 +33,7 @@ class LoadProductCategoryEvent extends ProductCategoryEvent {
       yield UnProductCategoryState();
       await Future.delayed(Duration(seconds: 1));
       ProductCategoryResponse categories =
-          await _productCategoryRepository.getProductcats();
+          await _productCategoryRepository.getProductcats(this.pageNumber);
       yield InProductCategoryState(categories);
     } catch (_, stackTrace) {
       developer.log('$_',

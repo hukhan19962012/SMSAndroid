@@ -6,27 +6,47 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:SMSAndroid/blocs/product_category/index.dart';
 
 class ProductCategoryScreen extends StatefulWidget {
-  const ProductCategoryScreen({
-    Key key,
-    @required ProductCategoryBloc productCategoryBloc,
-  })  : _productCategoryBloc = productCategoryBloc,
+  const ProductCategoryScreen(
+      {Key key,
+      @required ProductCategoryBloc productCategoryBloc,
+      int pageNumber,
+      int companyId})
+      : _productCategoryBloc = productCategoryBloc,
+        pageNumber = pageNumber,
+        companyId = companyId,
         super(key: key);
 
   final ProductCategoryBloc _productCategoryBloc;
-
+  final int pageNumber;
+  final int companyId;
   @override
   ProductCategoryScreenState createState() {
-    return ProductCategoryScreenState();
+    return ProductCategoryScreenState(this.pageNumber, this.companyId);
   }
 }
 
 class ProductCategoryScreenState extends State<ProductCategoryScreen> {
-  ProductCategoryScreenState();
+  int pageNumber;
+  int companyId;
+  ProductCategoryScreenState(this.pageNumber, this.companyId);
   ScrollController _scrollController = ScrollController();
   @override
   void initState() {
     super.initState();
-    _load();
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        this.pageNum = this.pageNum + 1;
+        _load(this.catId, this.pageNum, this.name);
+      } else if (_scrollController.position.pixels ==
+          _scrollController.position.minScrollExtent) {
+        if (this.pageNum - 1 > 0) {
+          this.pageNum = this.pageNum - 1;
+          _load(this.catId, this.pageNum, this.name);
+        }
+      }
+    });
+    _load(this.pageNumber);
   }
 
   @override
@@ -58,7 +78,7 @@ class ProductCategoryScreenState extends State<ProductCategoryScreen> {
                   child: RaisedButton(
                     color: Colors.blue,
                     child: Text('reload'),
-                    onPressed: _load,
+                    onPressed: () => {_load(this.pageNumber)},
                   ),
                 ),
               ],
@@ -106,7 +126,7 @@ class ProductCategoryScreenState extends State<ProductCategoryScreen> {
         itemCount: catRes.productcats.length);
   }
 
-  void _load() {
-    widget._productCategoryBloc.add(LoadProductCategoryEvent());
+  void _load(int pageNumber) {
+    widget._productCategoryBloc.add(LoadProductCategoryEvent(pageNumber));
   }
 }

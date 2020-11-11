@@ -104,7 +104,6 @@ class ProductScreenState extends State<ProductScreen> {
 Widget _buildListProduct(ProductResponse proRes, ScrollController controller) {
   return ListView.builder(
       controller: controller,
-      itemExtent: 10,
       itemBuilder: (context, index) {
         return ListTile(
           leading: CircleAvatar(

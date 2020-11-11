@@ -6,7 +6,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ProductCategoryPage(),
+      body: ProductCategoryPage(companyId: 1, pageNumber: 1),
     );
   }
 }
