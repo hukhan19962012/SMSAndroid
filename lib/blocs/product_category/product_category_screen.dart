@@ -9,26 +9,23 @@ class ProductCategoryScreen extends StatefulWidget {
   const ProductCategoryScreen(
       {Key key,
       @required ProductCategoryBloc productCategoryBloc,
-      int pageNumber,
-      int companyId})
+      int pageNumber})
       : _productCategoryBloc = productCategoryBloc,
         pageNumber = pageNumber,
-        companyId = companyId,
         super(key: key);
 
   final ProductCategoryBloc _productCategoryBloc;
   final int pageNumber;
-  final int companyId;
   @override
   ProductCategoryScreenState createState() {
-    return ProductCategoryScreenState(this.pageNumber, this.companyId);
+    return ProductCategoryScreenState(this.pageNumber);
   }
 }
 
 class ProductCategoryScreenState extends State<ProductCategoryScreen> {
   int pageNum;
-  int companyId;
-  ProductCategoryScreenState(this.pageNum, this.companyId);
+
+  ProductCategoryScreenState(this.pageNum);
   ScrollController _scrollController = ScrollController();
   @override
   void initState() {
@@ -80,7 +77,7 @@ class ProductCategoryScreenState extends State<ProductCategoryScreen> {
                   child: RaisedButton(
                     color: Colors.blue,
                     child: Text('reload'),
-                    onPressed: () => {_load(this.pageNumber)},
+                    onPressed: () => {_load(this.pageNum)},
                   ),
                 ),
               ],
@@ -96,7 +93,8 @@ class ProductCategoryScreenState extends State<ProductCategoryScreen> {
   }
 
   Widget _buildListProductCategory(ProductCategoryResponse catRes) {
-    return ListView.separated(
+    return ListView.builder(
+        controller: _scrollController,
         itemBuilder: (context, index) {
           return ListTile(
               leading: CircleAvatar(
@@ -119,11 +117,6 @@ class ProductCategoryScreenState extends State<ProductCategoryScreen> {
                               ProductPage(catRes.productcats[index].id, 1)),
                     )
                   });
-        },
-        separatorBuilder: (context, index) {
-          return Divider(
-            height: 1,
-          );
         },
         itemCount: catRes.productcats.length);
   }
