@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:SMSAndroid/models/product.dart';
 import 'package:SMSAndroid/models/product_response.dart';
 import 'package:http/http.dart' as http;
 
@@ -6,10 +9,13 @@ class ProductRepository {
 
   var getProductUrl = "$mainUrl/Product";
 
-  Future<ProductResponse> getProducts() async {
-    final response = await http.get(getProductUrl);
+  Future<List<Product>> getProducts() async {
+    final response = await http.get(getProductUrl + "/getAll");
     if (response.statusCode == 200) {
-      return ProductResponse.fromJson(response.body);
+      return json
+          .decode(response.body)
+          .map<Product>((item) => Product.fromJson(item))
+          .toList();
     } else {
       throw Exception('Failed to load Products');
     }
