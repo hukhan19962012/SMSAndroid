@@ -23,7 +23,9 @@ class _ProductCategoryPageState extends State<ProductCategoryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("ProductCategory"),
+          actions: <Widget>[
+            IconButton(icon: Icon(Icons.search), onPressed: null)
+          ],
         ),
         body: ProductCategoryScreen(
           productCategoryBloc: _productCategoryBloc,

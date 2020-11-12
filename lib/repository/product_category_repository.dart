@@ -6,7 +6,7 @@ class ProductCategoryRepository {
   var getCategorytUrl = "$mainUrl/ProductsCategory";
   Future<ProductCategoryResponse> getProductcats(int pageNumber) async {
     final response =
-        await http.get(getCategorytUrl + "?PageNumber=$pageNumber&");
+        await http.get(getCategorytUrl + "?PageNumber=$pageNumber");
     if (response.statusCode == 200) {
       return ProductCategoryResponse.fromJson(response.body);
     } else {
