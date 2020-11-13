@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'dart:async';
 import 'package:SMSAndroid/models/product.dart';
 import 'package:flutter/material.dart';
 import 'package:SMSAndroid/blocs/product_category/index.dart';
@@ -47,16 +47,14 @@ class DataSearch extends SearchDelegate<Product> {
     final response = await http
         .get("https://mysmsapi.azurewebsites.net/api/v1.0/Product/getAll");
     if (response.statusCode == 200) {
-      print(json
-          .decode(response.body)
-          .map<Product>((item) => Product.fromJson(item))
-          .toList()
-          .toString());
       return json
           .decode(response.body)
           .map<Product>((item) => Product.fromJson(item))
           .toList();
     }
+    List<Product> listProduct = List<Product>();
+    list().then((value) => listProduct = value);
+    print(listProduct.toString());
   }
 
   @override
@@ -83,14 +81,12 @@ class DataSearch extends SearchDelegate<Product> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    final suggesstionList = query.isEmpty ? list() : list();
-    List<Product> listProduct;
-    suggesstionList
-        .then((value) => value.forEach((item) => listProduct.add(item)));
+    final suggesstionList = this.listProduct;
+
     return ListView.builder(
       itemBuilder: (context, index) => ListTile(
-        leading: Image.network(listProduct[index].img),
-        title: Text(listProduct[index].name),
+        leading: Image.network(listProduct[0].img),
+        title: Text(listProduct[0].name),
       ),
     );
   }
