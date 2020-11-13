@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:async';
+import 'package:SMSAndroid/blocs/product/index.dart';
 import 'package:SMSAndroid/models/product.dart';
 import 'package:SMSAndroid/repository/product_repository.dart';
 import 'package:flutter/material.dart';
@@ -45,14 +46,26 @@ class _ProductCategoryPageState extends State<ProductCategoryPage> {
 
 class DataSearch extends SearchDelegate<Product> {
   ProductRepository _productRepository = ProductRepository();
+  FocusNode _focusNode;
   Future<List<Product>> listProduct(String search) async {
     return _productRepository.getProducts(search);
+  }
+
+  Future<Product> product(int id) async {
+    return _productRepository.getProduct(id);
   }
 
   @override
   List<Widget> buildActions(BuildContext context) {
     //acction Appbar
-    return [IconButton(icon: Icon(Icons.clear), onPressed: () {})];
+
+    return [
+      IconButton(
+          icon: Icon(Icons.clear),
+          onPressed: () {
+            query = "";
+          })
+    ];
   }
 
   @override
@@ -63,12 +76,35 @@ class DataSearch extends SearchDelegate<Product> {
           icon: AnimatedIcons.menu_arrow,
           progress: transitionAnimation,
         ),
-        onPressed: () {});
+        onPressed: () {
+          close(context, null);
+        });
   }
 
   @override
   Widget buildResults(BuildContext context) {
-    //show some result base on selection
+    if (query.isEmpty) {
+      query = "1";
+    }
+    return Center(
+        child: FutureBuilder<Product>(
+            future: product(int.parse(query)),
+            builder: (context, snapshot) {
+              if (snapshot.data != null) {
+                return Center(
+                    child: Column(
+                  children: [
+                    Container(
+                      child: Image.network(snapshot.data.img),
+                    ),
+                    Container(
+                      child: Text(snapshot.data.name),
+                    )
+                  ],
+                ));
+              }
+              return Center(child: CircularProgressIndicator());
+            }));
   }
 
   @override
@@ -79,7 +115,12 @@ class DataSearch extends SearchDelegate<Product> {
           if (snapshot.data != null) {
             return ListView.builder(
               itemBuilder: (context, index) => ListTile(
-                leading: Image.network(snapshot.data[index].img),
+                onTap: () {
+                  query = snapshot.data[index].id.toString();
+                  showResults(context);
+                },
+                leading: CircleAvatar(
+                    backgroundImage: NetworkImage(snapshot.data[index].img)),
                 title: Text(snapshot.data[index].name),
               ),
               itemCount: snapshot.data.length,

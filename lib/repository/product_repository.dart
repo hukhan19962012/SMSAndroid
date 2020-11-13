@@ -21,11 +21,11 @@ class ProductRepository {
     }
   }
 
-  Future<ProductResponse> getProduct(int productId) async {
+  Future<Product> getProduct(int productId) async {
     final response = await http.get(getProductUrl + "/$productId");
 
     if (response.statusCode == 200) {
-      return ProductResponse.fromJson(response.body);
+      return Product.fromJson(json.decode(response.body));
     } else {
       throw Exception('Failed to load post Product');
     }
