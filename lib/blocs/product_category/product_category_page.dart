@@ -47,6 +47,11 @@ class DataSearch extends SearchDelegate<Product> {
     final response = await http
         .get("https://mysmsapi.azurewebsites.net/api/v1.0/Product/getAll");
     if (response.statusCode == 200) {
+      print(json
+          .decode(response.body)
+          .map<Product>((item) => Product.fromJson(item))
+          .toList()
+          .toString());
       return json
           .decode(response.body)
           .map<Product>((item) => Product.fromJson(item))
