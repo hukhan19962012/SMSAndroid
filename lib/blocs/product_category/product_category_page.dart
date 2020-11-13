@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:async';
 import 'package:SMSAndroid/models/product.dart';
+import 'package:SMSAndroid/repository/product_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:SMSAndroid/blocs/product_category/index.dart';
 import 'package:http/http.dart' as http;
@@ -43,18 +44,9 @@ class _ProductCategoryPageState extends State<ProductCategoryPage> {
 }
 
 class DataSearch extends SearchDelegate<Product> {
-  Future<List<Product>> list() async {
-    final response = await http
-        .get("https://mysmsapi.azurewebsites.net/api/v1.0/Product/getAll");
-    if (response.statusCode == 200) {
-      return json
-          .decode(response.body)
-          .map<Product>((item) => Product.fromJson(item))
-          .toList();
-    }
-    List<Product> listProduct = List<Product>();
-    list().then((value) => listProduct = value);
-    print(listProduct.toString());
+  ProductRepository _productRepository = ProductRepository();
+  Future<List<Product>> listProduct(String search) async {
+    return _productRepository.getProducts(search);
   }
 
   @override
@@ -81,13 +73,19 @@ class DataSearch extends SearchDelegate<Product> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    final suggesstionList = this.listProduct;
-
-    return ListView.builder(
-      itemBuilder: (context, index) => ListTile(
-        leading: Image.network(listProduct[0].img),
-        title: Text(listProduct[0].name),
-      ),
-    );
+    return FutureBuilder<List<Product>>(
+        future: listProduct(query),
+        builder: (context, snapshot) {
+          if (snapshot.data != null) {
+            return ListView.builder(
+              itemBuilder: (context, index) => ListTile(
+                leading: Image.network(snapshot.data[index].img),
+                title: Text(snapshot.data[index].name),
+              ),
+              itemCount: snapshot.data.length,
+            );
+          }
+          return Center(child: CircularProgressIndicator());
+        });
   }
 }

@@ -9,8 +9,8 @@ class ProductRepository {
 
   var getProductUrl = "$mainUrl/Product";
 
-  Future<List<Product>> getProducts() async {
-    final response = await http.get(getProductUrl + "/getAll");
+  Future<List<Product>> getProducts(String search) async {
+    final response = await http.get(getProductUrl + "/getAll?search=$search");
     if (response.statusCode == 200) {
       return json
           .decode(response.body)
