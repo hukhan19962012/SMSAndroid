@@ -1,6 +1,3 @@
-import 'package:SMSAndroid/models/product.dart';
-import 'package:SMSAndroid/repository/product_repository.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:SMSAndroid/blocs/product/index.dart';
 
@@ -35,11 +32,5 @@ class _ProductPageState extends State<ProductPage> {
         pageNum: pageNumber,
       ),
     );
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(IntProperty('pageNumber', pageNumber));
   }
 }

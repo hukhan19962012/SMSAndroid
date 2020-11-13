@@ -63,6 +63,7 @@ class LoadSingleProductEvent extends ProductEvent {
       yield UnProductState(1, "", 1);
       await Future.delayed(Duration(seconds: 1));
       Product product = await _productRepository.getProduct(this.proId);
+      print(product.img);
       yield InProductState(currentState.productResponse, product);
     } catch (_, stackTrace) {
       developer.log('$_',

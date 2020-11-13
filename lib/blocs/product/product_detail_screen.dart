@@ -36,43 +36,56 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProductBloc, ProductState>(
-        cubit: widget._productBloc,
-        builder: (
-          BuildContext context,
-          ProductState currentState,
-        ) {
-          if (currentState is UnProductState) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Product Detail'),
+      ),
+      body: BlocBuilder<ProductBloc, ProductState>(
+          cubit: widget._productBloc,
+          builder: (
+            BuildContext context,
+            ProductState currentState,
+          ) {
+            if (currentState is UnProductState) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            if (currentState is ErrorProductState) {
+              var raisedButton = RaisedButton(
+                  color: Colors.blue,
+                  child: Text('reload'),
+                  onPressed: () => {_load(this.proId)});
+              return Center(
+                  child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(currentState.errorMessage ?? 'Error'),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 32.0),
+                    child: raisedButton,
+                  ),
+                ],
+              ));
+            }
+            if (currentState is InProductState) {
+              return Center(
+                  child: Column(
+                children: [
+                  Container(
+                    child: Image.network(currentState.product.img),
+                  ),
+                  Container(
+                    child: Text(currentState.product.name),
+                  )
+                ],
+              ));
+            }
             return Center(
               child: CircularProgressIndicator(),
             );
-          }
-          if (currentState is ErrorProductState) {
-            var raisedButton = RaisedButton(
-                color: Colors.blue,
-                child: Text('reload'),
-                onPressed: () => {_load(this.proId)});
-            return Center(
-                child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(currentState.errorMessage ?? 'Error'),
-                Padding(
-                  padding: const EdgeInsets.only(top: 32.0),
-                  child: raisedButton,
-                ),
-              ],
-            ));
-          }
-          if (currentState is InProductState) {
-            return Center(
-              child: Text(currentState.product.name),
-            );
-          }
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        });
+          }),
+    );
   }
 
   void _load(int id) {

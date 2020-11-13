@@ -22,15 +22,17 @@ class ProductScreen extends StatefulWidget {
   final int pageNum;
   @override
   ProductScreenState createState() {
-    return ProductScreenState(this.catId, this.name, this.pageNum);
+    return ProductScreenState(
+        this.catId, this.name, this.pageNum, this._productBloc);
   }
 }
 
 class ProductScreenState extends State<ProductScreen> {
-  ProductScreenState(this.catId, this.name, this.pageNum);
+  ProductScreenState(this.catId, this.name, this.pageNum, this._productBloc);
   int catId;
   String name;
   int pageNum;
+  ProductBloc _productBloc;
   ScrollController _scrollController = ScrollController();
   @override
   void initState() {
@@ -49,6 +51,7 @@ class ProductScreenState extends State<ProductScreen> {
         }
       }
     });
+    _loadProduct(1);
   }
 
   @override
@@ -87,8 +90,8 @@ class ProductScreenState extends State<ProductScreen> {
             ));
           }
           if (currentState is InProductState) {
-            return _buildListProduct(
-                currentState.productResponse, _scrollController);
+            return _buildListProduct(currentState.productResponse,
+                _scrollController, this._productBloc);
           }
           return Center(
             child: CircularProgressIndicator(),
@@ -99,27 +102,40 @@ class ProductScreenState extends State<ProductScreen> {
   void _load(int catId, int pageNumber, String name) {
     widget._productBloc.add(LoadProductEvent(catId, pageNumber, name));
   }
+
+  void _loadProduct(int proId) {
+    widget._productBloc.add(LoadSingleProductEvent(proId));
+  }
 }
 
-Widget _buildListProduct(ProductResponse proRes, ScrollController controller) {
+Widget _buildListProduct(ProductResponse proRes, ScrollController controller,
+    ProductBloc _productBloc) {
   return ListView.builder(
       controller: controller,
       itemBuilder: (context, index) {
         return ListTile(
-          leading: CircleAvatar(
-            backgroundImage: NetworkImage(proRes.products[index].img),
-            radius: 30,
-          ),
-          title: Text(
-            proRes.products[index].name,
-            style: TextStyle(color: Colors.black, fontSize: 16),
-          ),
-          subtitle: Text(
-            proRes.products[index].price.toString() + "\$",
-            style: TextStyle(color: Colors.grey, fontSize: 14),
-          ),
-          // onTap: () => {_openMyPage(proRes.products[index])},
-        );
+            leading: CircleAvatar(
+              backgroundImage: NetworkImage(proRes.products[index].img),
+              radius: 30,
+            ),
+            title: Text(
+              proRes.products[index].name,
+              style: TextStyle(color: Colors.black, fontSize: 16),
+            ),
+            subtitle: Text(
+              proRes.products[index].price.toString() + "\$",
+              style: TextStyle(color: Colors.grey, fontSize: 14),
+            ),
+            onTap: () => {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ProductDetailScreen(
+                              productBloc: _productBloc,
+                              propid: proRes.products[index].id,
+                            )),
+                  )
+                });
       },
       itemCount: proRes.products.length);
 }
