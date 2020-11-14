@@ -8,8 +8,9 @@ import 'package:meta/meta.dart';
 abstract class DealEvent {
   Stream<DealState> applyAsync({DealState currentState, DealBloc bloc});
   final DealRepository _dealRepository = DealRepository();
-}
-
+  }
+  
+ 
 class UnDealEvent extends DealEvent {
   @override
   Stream<DealState> applyAsync({DealState currentState, DealBloc bloc}) async* {
