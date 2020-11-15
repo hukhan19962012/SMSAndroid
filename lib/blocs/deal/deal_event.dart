@@ -2,15 +2,15 @@ import 'dart:async';
 import 'dart:developer' as developer;
 
 import 'package:SMSAndroid/blocs/deal/index.dart';
+import 'package:SMSAndroid/repository/deal_repository.dart';
 import 'package:meta/meta.dart';
 
 @immutable
 abstract class DealEvent {
   Stream<DealState> applyAsync({DealState currentState, DealBloc bloc});
   final DealRepository _dealRepository = DealRepository();
-  }
-  
- 
+}
+
 class UnDealEvent extends DealEvent {
   @override
   Stream<DealState> applyAsync({DealState currentState, DealBloc bloc}) async* {

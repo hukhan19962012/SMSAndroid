@@ -10,7 +10,7 @@ class ProductCategoryRepository {
     if (response.statusCode == 200) {
       return ProductCategoryResponse.fromJson(response.body);
     } else {
-      throw Exception('Failed to load Products');
+      throw Exception('Failed to load ProductsCategory');
     }
   }
 }
