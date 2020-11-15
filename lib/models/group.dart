@@ -32,9 +32,8 @@ class Group {
         description: json["description"],
         img: json["img"],
         isActive: json["isActive"],
-        deals: List<Deal>.from(json["deals"].map((x) => Deal.fromJson(x))),
-        sellers:
-            List<Seller>.from(json["sellers"].map((x) => Seller.fromJson(x))),
+        deals: json["deals"],
+        sellers: json["sellers"],
       );
 
   Map<String, dynamic> toJson() => {
