@@ -33,7 +33,7 @@ class Seller {
         id: json["id"],
         name: json["name"],
         img: json["img"],
-        deals: List<Deal>.from(json["deals"].map((x) => Deal.fromJson(x))),
+        deals: json["deals"] == null ? null : json["deals"],
         email: json["email"],
         birthDate: DateTime.parse(json["birthDate"]),
         address: json["address"],

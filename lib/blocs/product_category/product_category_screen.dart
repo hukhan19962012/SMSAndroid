@@ -50,6 +50,7 @@ class ProductCategoryScreenState extends State<ProductCategoryScreen> {
 
   @override
   void dispose() {
+    _scrollController.dispose();
     super.dispose();
   }
 

@@ -29,8 +29,7 @@ class Company {
         description: json["description"],
         img: json["img"],
         isActive: json["isActive"],
-        products: List<Product>.from(
-            json["products"].map((x) => Product.fromJson(x))),
+        products: json["products"] == null ? null : json["products"],
       );
 
   Map<String, dynamic> toJson() => {

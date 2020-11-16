@@ -2,7 +2,7 @@ import 'package:SMSAndroid/models/product.dart';
 import 'package:SMSAndroid/repository/product_repository.dart';
 import 'package:flutter/material.dart';
 
-class DataSearch extends SearchDelegate<Product> {
+class DataProductSearch extends SearchDelegate<Product> {
   ProductRepository _productRepository = ProductRepository();
   FocusNode _focusNode;
   Future<List<Product>> listProduct(String search) async {

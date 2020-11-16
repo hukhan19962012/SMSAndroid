@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 
 abstract class ProductCategoryState extends Equatable {
   final List propss;
+
   ProductCategoryState([this.propss]);
 
   @override

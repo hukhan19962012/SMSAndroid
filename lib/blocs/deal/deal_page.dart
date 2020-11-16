@@ -9,7 +9,7 @@ class DealPage extends StatefulWidget {
 }
 
 class _DealPageState extends State<DealPage> {
-  final _dealBloc = DealBloc();
+  final _dealBloc = DealBloc(UnDealState());
 
   @override
   Widget build(BuildContext context) {

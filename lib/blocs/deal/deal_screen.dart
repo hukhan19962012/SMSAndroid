@@ -67,15 +67,6 @@ class DealScreenState extends State<DealScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(currentState.hello),
-                  Text('Flutter files: done'),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 32.0),
-                    child: RaisedButton(
-                      color: Colors.red,
-                      child: Text('throw error'),
-                      onPressed: () => _load(true),
-                    ),
-                  ),
                 ],
               ),
             );
@@ -87,7 +78,7 @@ class DealScreenState extends State<DealScreen> {
         });
   }
 
-  void _load([bool isError = false]) {
-    widget._dealBloc.add(LoadDealEvent(isError));
+  void _load() {
+    widget._dealBloc.add(LoadDealEvent());
   }
 }

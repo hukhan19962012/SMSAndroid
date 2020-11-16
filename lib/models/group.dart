@@ -32,8 +32,8 @@ class Group {
         description: json["description"],
         img: json["img"],
         isActive: json["isActive"],
-        deals: json["deals"],
-        sellers: json["sellers"],
+        deals: json["deals"] == null ? null : json["deals"],
+        sellers: json["sellers"] == null ? null : json["sellers"],
       );
 
   Map<String, dynamic> toJson() => {

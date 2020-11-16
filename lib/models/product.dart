@@ -33,7 +33,8 @@ class Product {
       price: json["price"],
       img: json["img"],
       isActive: json["isActive"],
-      productVarietys: json["productVarietys"],
+      productVarietys:
+          json["productVarietys"] == null ? null : json["productVarietys"],
     );
   }
 

@@ -1,4 +1,3 @@
-import 'package:SMSAndroid/blocs/product/product_page.dart';
 import 'package:SMSAndroid/blocs/product_category/product_category_page.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +10,9 @@ class ProductMainPage extends StatelessWidget {
       theme: ThemeData(
           primarySwatch: Colors.orange,
           visualDensity: VisualDensity.adaptivePlatformDensity),
-      home: ProductCategoryPage(pageNumber: 1,),
+      home: ProductCategoryPage(
+        pageNumber: 1,
+      ),
     );
   }
 }

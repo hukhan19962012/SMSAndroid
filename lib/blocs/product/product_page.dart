@@ -1,5 +1,5 @@
 import 'package:SMSAndroid/blocs/product_category/product_category_page.dart';
-import 'package:SMSAndroid/pages/product_page.dart';
+import 'package:SMSAndroid/views/product_page.dart';
 import 'package:SMSAndroid/views/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:SMSAndroid/blocs/product/index.dart';
