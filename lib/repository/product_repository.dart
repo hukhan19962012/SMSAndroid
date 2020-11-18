@@ -9,13 +9,14 @@ class ProductRepository {
 
   var getProductUrl = "$mainUrl/Product";
 
-  Future<List<Product>> getProducts(String search) async {
-    final response = await http.get(getProductUrl + "/getAll?search=$search");
+  Future<ProductResponse> getProducts(String search) async {
+    String url = getProductUrl + "?pageNumber=1&pageSize=100000&search=$search";
+    if (search == null) {
+      url = getProductUrl + "?pageNumber=1&pageSize=100000";
+    }
+    final response = await http.get(url);
     if (response.statusCode == 200) {
-      return json
-          .decode(response.body)
-          .map<Product>((item) => Product.fromJson(item))
-          .toList();
+      return ProductResponse.fromJson(response.body);
     } else {
       throw Exception('Failed to load Products');
     }

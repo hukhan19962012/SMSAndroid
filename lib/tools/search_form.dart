@@ -1,11 +1,11 @@
 import 'package:SMSAndroid/models/product.dart';
+import 'package:SMSAndroid/models/product_response.dart';
 import 'package:SMSAndroid/repository/product_repository.dart';
 import 'package:flutter/material.dart';
 
 class DataProductSearch extends SearchDelegate<Product> {
   ProductRepository _productRepository = ProductRepository();
-  FocusNode _focusNode;
-  Future<List<Product>> listProduct(String search) async {
+  Future<ProductResponse> listProduct(String search) async {
     return _productRepository.getProducts(search);
   }
 
@@ -67,21 +67,23 @@ class DataProductSearch extends SearchDelegate<Product> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return FutureBuilder<List<Product>>(
-        future: listProduct(query),
+    Future<ProductResponse> productResponse = listProduct(query);
+    return FutureBuilder<ProductResponse>(
+        future: productResponse,
         builder: (context, snapshot) {
           if (snapshot.data != null) {
             return ListView.builder(
               itemBuilder: (context, index) => ListTile(
                 onTap: () {
-                  query = snapshot.data[index].id.toString();
+                  query = snapshot.data.products[index].id.toString();
                   showResults(context);
                 },
                 leading: CircleAvatar(
-                    backgroundImage: NetworkImage(snapshot.data[index].img)),
-                title: Text(snapshot.data[index].name),
+                    backgroundImage:
+                        NetworkImage(snapshot.data.products[index].img)),
+                title: Text(snapshot.data.products[index].name),
               ),
-              itemCount: snapshot.data.length,
+              itemCount: snapshot.data.products.length,
             );
           }
           return Center(child: CircularProgressIndicator());
